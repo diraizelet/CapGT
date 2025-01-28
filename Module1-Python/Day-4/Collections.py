@@ -102,7 +102,7 @@
 #         palindrome(i)
         
 
-keyHolder = {"apples": 2, "banana": 5}
-keyHolder2=dict(name="bob", age=40)
-print(keyHolder)
-print(keyHolder2)
+# keyHolder = {"apples": 2, "banana": 5}
+# keyHolder2=dict(name="bob", age=40)
+# print(keyHolder)
+# print(keyHolder2)
