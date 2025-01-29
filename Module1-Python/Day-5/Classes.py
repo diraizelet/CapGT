@@ -90,7 +90,11 @@ class School(Educational_institution):
         print("There are ",self.__classes," classes in ",self.__name)
 
 class College(Educational_institution):
+    __default="Beginners tutorials"
     __subjects=[]
+    def get_default(self):
+        print(self.__default)
+
     def __init__(self,name):
         self.__name=name
         print("Created a college ",name)
@@ -119,6 +123,7 @@ class UG(College):
         self.__subjects.append(subject)
 
     def get_courses(self):
+        print("this is the ug function.")
         return self.__subjects
     
 
@@ -136,7 +141,11 @@ class PG(College):
         self.__subjects.append(subject)
 
     def get_courses(self):
+        print("this is the pg function.")
         return self.__subjects
+    
+    def get_collegeName(self):
+        print("The college name: ",self.__name)
 
 
 # n_school=School("Narayana")
@@ -145,9 +154,19 @@ class PG(College):
 # c_college.no_of_classes(40)
 # print(c_college.get_courses())
 
-ug= UG("Maruchusses")
-pg=PG("Moscow")
-pg.courses_added("Microbio")
-ug.courses_added("Biochem")
-print(pg.get_courses())
-print(ug.get_courses())
+# ug= UG("Maruchusses")
+# pg=PG("Moscow")
+# pg.courses_added("Microbio")
+# ug.courses_added("Biochem")
+# print(pg.get_courses())
+# print(ug.get_courses())
+def main():
+    list_of_colleges=[]
+    college_name="default"
+    while college_name!="":
+        college_name=input("Enter the college name: ")
+        list_of_colleges.append(PG(college_name))
+    for college in list_of_colleges:
+        college.get_collegeName()
+
+main()

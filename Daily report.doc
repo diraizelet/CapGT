@@ -1,25 +1,39 @@
 DAY-1 (23/01/2025)
-#quadratic equation solution
+#Quadratic equation solution
 #math library
-#random functions
+#Random functions
 
 DAY-2 (24/01/2025)
-#functions
-#disassembly of code in the python compiler
-#in the code we have to check for the input validity 
+Functions
+#Disassembly of code in the python compiler
+#In the code we have to check for the input validity 
 
 
 DAY-3 (25/01/2025)
 #Git management
-#exam of 20 coding questions    
+#Exam of 20 coding questions    
 
 DAY-4 (27/01/2025)
-#fibonacci series
-#arrays and collections
-# string manipulation
-#team formation team-5
-#mysql installation and use python 
+#Fibonacci series
+#Arrays and collections
+#String manipulation
+#Team formation team-5
+#Mysql installation and use python 
 
-DAY-5 (28/01.2025)
-#tuples- immutable
-#oops concept
+DAY-5 (28/01/2025)
+#Tuples-immutable
+#OOPS 
+
+DAY-6 (29/01/2025)
+#Overloading-functions with multiple parameters or return type.
+#Overriding-functions that are in classes and inherited from one to another and 
+    the child class needs the functions in the parent class to behave differently.
+#Static main is written in java to make the main functions stay in memory and not let
+    the program be flushed by the garbage collector.
+#Polymorphism
+#storing the objects created in a list.
+# *args - is used to send non key parameters.
+# **kwargs are used to send key parameters.
+#Destructor __del___
+#Constructor overriding 
+#Creating a dummy customer order listing class
