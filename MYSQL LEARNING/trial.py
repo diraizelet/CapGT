@@ -27,113 +27,149 @@ def create_database():
     if connection:
         try:
             cursor = connection.cursor()
-            create_db_query = "CREATE DATABASE IF NOT EXISTS AIGUARD;"
+            create_db_query = "CREATE DATABASE IF NOT EXISTS STUDENTDETAILS;"
             cursor.execute(create_db_query)
             connection.commit()
-            print("Database 'AIGUARD' created successfully.")
+            print("Database 'STUDENTDETAILS' created successfully.")
         except Error as e:
             print(f"Error creating database: {e}")
         finally:
             cursor.close()
             connection.close()
 
-def create_firewalllogs_table():
-    connection = create_db_connection('AIGUARD')
+def create_CLASS7_table():
+    connection = create_db_connection('STUDENTDETAILS')
     if connection:
         try:
             cursor = connection.cursor()
             create_table_query = """
-            CREATE TABLE IF NOT EXISTS firewalllogs (
+            CREATE TABLE IF NOT EXISTS CLASS7 (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                timestamp DATETIME,
-                ip VARCHAR(15),
-                port INT,
-                traffic_type VARCHAR(50),
-                action VARCHAR(50),
-                createdat DATETIME DEFAULT CURRENT_TIMESTAMP,
-                updatedat DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                name VARCHAR(15),
+                rollno INT,
+                branch VARCHAR(3),
+                grade VARCHAR(1)
             );
             """
             cursor.execute(create_table_query)
             connection.commit()
-            print("Firewall logs table created successfully in AIGUARD database.")
+            print("class7 table created successfully in STUDENTDETAILS database.")
         except Error as e:
             print(f"Error creating table: {e}")
         finally:
             cursor.close()
             connection.close()
 
-def import_csv_to_db(csv_file_path):
-    connection = create_db_connection('AIGUARD')
+def import_data_to_db(data):
+    connection = create_db_connection('STUDENTDETAILS')
     if connection:
         try:
             cursor = connection.cursor()
             insert_query = """
-            INSERT INTO firewalllogs (timestamp, ip, port, traffic_type, action, createdat, updatedat)
-            VALUES (%s, %s, %s, %s, %s, %s, %s);
+            INSERT INTO CLASS7 (NAME, ROLLNO, BRANCH, GRADE)
+            VALUES (%s, %s, %s, %s);
             """
 
             # Get current timestamp for createdat and updatedat columns
             current_time = datetime.now()
 
-            # Open CSV file and insert data into the database
-            with open(csv_file_path, 'r') as file:
-                csv_reader = csv.DictReader(file)
-                for row in csv_reader:
-                    # Extract data from CSV row and insert into DB
-                    cursor.execute(insert_query, (
-                        row['timestamp'], row['ip'], row['port'], row['traffic_type'], row['action'],
-                        current_time, current_time
-                    ))
+            # Loop through the provided data and insert each record into the database
+            for row in data:
+                cursor.execute(insert_query, (
+                     row['name'], row['rollno'], row['branch'], row['grade']
+                ))
 
             connection.commit()
-            print(f"Data from {csv_file_path} imported successfully into the database.")
+            print("Data imported successfully into the database.")
         except Error as e:
-            print(f"Error importing CSV data: {e}")
+            print(f"Error importing data: {e}")
         finally:
             cursor.close()
             connection.close()
 
+def delete_the_data_from_db(rollno):
+    connection = create_db_connection('STUDENTDETAILS')
+    if connection:
+        try:
+            cursor = connection.cursor()
+            delete_query = "DELETE FROM CLASS7 WHERE ROLLNO = %s;"
+            cursor.execute(delete_query, (rollno,))
+            connection.commit()
+            print(f"Student with rollno {rollno} deleted successfully.")
+        except Error as e:
+            print(f"Error deleting data: {e}")
+        finally:
+            cursor.close()
+            connection.close()
+
+def get_input_for_insertion():
+    row={}
+    name=input("Enter the name: ")
+    rollno=int(input("Enter the rollno:"))
+    branch=input("Enter the branch: ")
+    grade=input("Enter the overall grade: ")
+    row["name"]=name
+    row["rollno"]=rollno
+    row["branch"]=branch
+    row["grade"]=grade
+    return row
+
+def update_the_data_in_db(rollno):
+    connection = create_db_connection('STUDENTDETAILS')
+    if connection:
+        try:
+            cursor = connection.cursor()
+            # Prompt user for new details to update
+            print("Enter the new details to update:")
+            new_name = input("Enter new name: ")
+            new_branch = input("Enter new branch: ")
+            new_grade = input("Enter new grade: ")
+
+            # Update query
+            update_query = """
+            UPDATE CLASS7
+            SET NAME = %s, BRANCH = %s, GRADE = %s
+            WHERE ROLLNO = %s;
+            """
+            cursor.execute(update_query, (new_name, new_branch, new_grade, rollno))
+            connection.commit()
+
+            # Check if any row was updated
+            if cursor.rowcount > 0:
+                print(f"Student with rollno {rollno} updated successfully.")
+            else:
+                print(f"No student found with rollno {rollno}.")
+
+        except Error as e:
+            print(f"Error updating data: {e}")
+        finally:
+            cursor.close()
+            connection.close()
+
+
+
 if __name__ == "__main__":
     # Create the AIGUARD database if not already exists
-    create_database()
+    # create_database()
 
     # Create the firewalllogs table within the AIGUARD database
-    create_firewalllogs_table()
-
-    # Specify the path to your CSV file
-    csv_file_path = "D:\\Unityprojects\\CapGT\\MYSQL LEARNING\\firewall_logs.csv"
- # Change this path if needed
-
-    # Import CSV data into the database
-    import_csv_to_db(csv_file_path)
+    # create_CLASS7_table()
 
     
-
-
-# import csv
-# import mysql.connector
-# from mysql.connector import Error
-
-#                 # Commit the transaction after all rows are inserted
-#                 connection.commit()
-#                 print(f"{cursor.rowcount} records inserted successfully.")
-
-#     except Error as e:
-#         print(f"Error: {e}")
-#     finally:
-#         # Close the database connection
-#         if connection.is_connected():
-#             cursor.close()
-#             connection.close()
-#             print("Connection closed.")
-
-
-# if __name__ == "__main__":
-#     db_config = {
-#         'host': 'localhost',  # Database host
-#         'user': 'root',       # Database username
-#         'password': '1234',  # Database password
-#         'database': 'AIGUARD'  # Database name
-#     }
-#     upload_csv_to_db('firewall_logs.csv', db_config)
+    while True:
+        print("1. Insert data \n2. Delete the data \n3.Update the data \n4.Exit")
+        choice = int(input("Enter the operation you want to perform on the db: "))
+        if choice==1:
+            data=[]
+            data.append(get_input_for_insertion())
+            import_data_to_db(data)
+        elif choice==2:
+            id=int(input("Enter the rollno for deletion: "))
+            delete_the_data_from_db(id)
+        elif choice==3:
+            id=int(input("Enter the roll no for updation: "))
+            update_the_data_in_db(id)
+        elif choice==4:
+            break
+        else:
+            print("Invalid choice, Try again")
