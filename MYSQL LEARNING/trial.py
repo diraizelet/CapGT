@@ -154,7 +154,6 @@ if __name__ == "__main__":
 
     # Create the firewalllogs table within the AIGUARD database
     # create_CLASS7_table()
-
     
     while True:
         print("1. Insert data \n2. Delete the data \n3.Update the data \n4.Exit")

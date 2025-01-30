@@ -18,7 +18,7 @@ DAY-4 (27/01/2025)
 #Arrays and collections
 #String manipulation
 #Team formation team-5
-#Mysql installation and use python 
+#Mysql installation and use python (self learning)
 
 DAY-5 (28/01/2025)
 #Tuples-immutable
@@ -37,3 +37,12 @@ DAY-6 (29/01/2025)
 #Destructor __del___
 #Constructor overriding 
 #Creating a dummy customer order listing class
+
+DAY-7 (30/01/2025)
+#classes
+#modules
+# packages are folders with multiple files and has a __init__.py in it 
+    the package name must be all lowercase and can have _ in it.
+    the package can be imported from <package_name> import * or specific data
+#abstract class
+#concrete class 
