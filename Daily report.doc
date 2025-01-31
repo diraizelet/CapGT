@@ -43,6 +43,15 @@ DAY-7 (30/01/2025)
 #modules
 # packages are folders with multiple files and has a __init__.py in it 
     the package name must be all lowercase and can have _ in it.
-    the package can be imported from <package_name> import * or specific data
+    the package can be imported from <package_name> import * or specific data.  
 #abstract class
-#concrete class 
+#concrete class is the implementation of the abstract class.
+
+DAY-8 (31/01/2025)
+#Class benefits is the feature version something and  the object can use or call
+    the functions in the parent class or the child class, think of it like a standard 
+    template.
+#Interface is a blue print of a class that once inherited must implement all the methods 
+    inside the Interface.
+#abstract class is the class blue print that may or may not have functionality inside the
+    mehtods and need not be implemented in the inherited class.
